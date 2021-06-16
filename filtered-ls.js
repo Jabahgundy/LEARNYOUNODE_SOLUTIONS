@@ -1,18 +1,20 @@
 'use strict'
-
 const fs = require('fs');
-const path = require('path');
 
-const directory = process.agrv[2];
-const extension = `.${process.agrv[3]}`;
+const pathname = process.argv[2];
+const extension = process.argv[3];
 
-fs.readdir(directory, (err, list) => {
-    list.forEach(file => {
-        if (path.extname(file) === extension) {
-            console.log(file);
+fs.readdir(pathname, (error, list) => {
+    if (error) {
+        console.log(error);
+        return;
+    }
+    for (let i = 0; i < list.length; i++) {
+        const split = list[i].split(".");
+        if (split[1] === extension) {
+            console.log(list[i]);
         }
-
-    });
+    }
 });
 
 
